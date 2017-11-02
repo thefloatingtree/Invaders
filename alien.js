@@ -5,7 +5,7 @@ function alienObject(xoff, yoff, difMult) {
     this.randOffy = 0;
     this.pos = createVector(canvasx/2 + xoff + this.randOffx, 55 + yoff + this.randOffy);
     this.refpos = createVector(canvasx/2 + xoff + this.randOffx, 75 + yoff + this.randOffy);
-    this.speed = 0.7;
+    this.speed = 0.9;
     this.dir = createVector(this.speed,0);
     this.live = true;
     this.right = true;
