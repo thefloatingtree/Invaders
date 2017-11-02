@@ -75,6 +75,7 @@ function gameManager () {
             aliens.length = 0;
 
             this.spawnAliens(difMult);
+            console.log(speed);
         }
     }
 }
