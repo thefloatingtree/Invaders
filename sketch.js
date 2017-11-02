@@ -86,7 +86,7 @@ function draw() {
             tipDisplay.render();
         }
         if (gM.win === 2) {
-            gM.reset("soft",0.3);
+            gM.reset("soft",0.05);
         }
     }
     
