@@ -104,7 +104,7 @@ function draw() {
 
 function keyPressed() { 
     if (keyCode == UP_ARROW) {
-        if (timer >= 25) {
+        if (timer >= 20) {
             bullets.push(new bulletObject());               //Creates Bullet
             
             fires.push(new fire(x,canvasy - 10));      //Creates Fire Partical effect
