@@ -16,7 +16,7 @@ var canvasy;
 p5.disableFriendlyErrors = true;
 
 function setup() {
-    canvasx = windowWidth; //Sets size of canvas
+    canvasx = windowSizeCheck(); //Sets size of canvas
     canvasy = windowHeight;  
     
     createCanvas(canvasx,canvasy);             //BASIC SETUP
@@ -114,5 +114,13 @@ function keyPressed() {
     
     if (keyCode === SHIFT && gM.gameLive === false) {
         gM.reset("full",0);
+    }
+}
+
+function windowSizeCheck () {
+    if (windowWidth > 700) {
+        return 700;
+    } else {
+        return windowWidth;
     }
 }
