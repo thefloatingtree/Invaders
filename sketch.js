@@ -19,6 +19,8 @@ function setup() {
     canvasx = windowSizeCheck(); //Sets size of canvas
     canvasy = windowHeight;  
     
+    console.log(canvasx,canvasy);
+    
     createCanvas(canvasx,canvasy);             //BASIC SETUP
     rectMode(CENTER);
     
