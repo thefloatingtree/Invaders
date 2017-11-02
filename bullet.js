@@ -28,7 +28,7 @@ function bulletObject() {
     }
     
     this.update = function() {
-        this.pos.y -= 2;
+        this.pos.y -= 4;
     }
     
 }
