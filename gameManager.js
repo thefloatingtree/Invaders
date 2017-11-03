@@ -4,6 +4,7 @@ function gameManager () {
     this.score = 0;
     this.totalScore = 0;
     this.level = 1;
+    this.speed = 0.9;
     
     this.checkWinLose = function() {
         if (this.gameLive) {
@@ -26,34 +27,37 @@ function gameManager () {
         this.checkWinLose();
     }
     
-    this.spawnAliens = function(difMult) {
-        aliens.push(new alienObject(0,0,difMult));                  //CREATES ALIENS IN GRID
-        aliens.push(new alienObject(-50,0,difMult));
-        aliens.push(new alienObject(50,0,difMult));
-        aliens.push(new alienObject(0,50,difMult));
-        aliens.push(new alienObject(-50,50,difMult));
-        aliens.push(new alienObject(50,50,difMult));
-        aliens.push(new alienObject(-100,0,difMult));
-        aliens.push(new alienObject(100,0,difMult));
-        aliens.push(new alienObject(-100,50,difMult));
-        aliens.push(new alienObject(100,50,difMult));
-        aliens.push(new alienObject(0,100,difMult));
-        aliens.push(new alienObject(-50,100,difMult));
-        aliens.push(new alienObject(50,100,difMult));
-        aliens.push(new alienObject(0,150,difMult));
-        aliens.push(new alienObject(-50,150,difMult));
-        aliens.push(new alienObject(50,150,difMult));
-        aliens.push(new alienObject(-100,100,difMult));
-        aliens.push(new alienObject(100,100,difMult));
-        aliens.push(new alienObject(-100,150,difMult));
-        aliens.push(new alienObject(100,150,difMult));
+    this.spawnAliens = function() {
+        aliens.push(new alienObject(0,0));                  //CREATES ALIENS IN GRID
+        aliens.push(new alienObject(-50,0));
+        aliens.push(new alienObject(50,0));
+        aliens.push(new alienObject(0,50));
+        aliens.push(new alienObject(-50,50));
+        aliens.push(new alienObject(50,50));
+        aliens.push(new alienObject(-100,0));
+        aliens.push(new alienObject(100,0));
+        aliens.push(new alienObject(-100,50));
+        aliens.push(new alienObject(100,50));
+        aliens.push(new alienObject(0,100));
+        aliens.push(new alienObject(-50,100));
+        aliens.push(new alienObject(50,100));
+        aliens.push(new alienObject(0,150));
+        aliens.push(new alienObject(-50,150));
+        aliens.push(new alienObject(50,150));
+        aliens.push(new alienObject(-100,100));
+        aliens.push(new alienObject(100,100));
+        aliens.push(new alienObject(-100,150));
+        aliens.push(new alienObject(100,150));
     }
     
-    this.reset = function(full, difMult) {
-        if (full === "full") {
+    this.reset = function(full) {
+        if (full === "hard") {
             this.gameLive = true;
             this.win = 0;
             this.score = 0;
+            this.totalScore = 0;
+            this.level = 1;
+            this.speed = 0.9;
 
             timer = 60;
             x = canvasx/2;
@@ -62,7 +66,7 @@ function gameManager () {
             bullets.length = 0;
             aliens.length = 0;
 
-            this.spawnAliens(difMult);
+            this.spawnAliens();
         } else {
             this.gameLive = true;
             this.win = 0;
@@ -74,8 +78,8 @@ function gameManager () {
             bullets.length = 0;
             aliens.length = 0;
 
-            this.spawnAliens(difMult);
-            console.log(speed);
+            this.spawnAliens();
+            console.log(this.speed);
         }
     }
 }
