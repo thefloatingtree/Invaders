@@ -2,14 +2,15 @@
 //Jacob Perry//
 
 //VARIABLES & ARRAYS
-var x;                  //player
 var bullets = [];       //object arrays
 var aliens = [];
+var blocks = [];
+var powerUps = [];
 var particles = [];
 var explosions = [];
 var fires = [];
 
-var timer = 60;         //misc
+var boomTimer = 60;         //misc
 var canvasx;
 var canvasy;
 
@@ -26,17 +27,20 @@ function setup() {
 
     frameRate(60);
 
-    pM = new particleManager();                         //CREATES PARTICLE MANAGER
+    pM = new particleManager();                         //CREATES MANAGERS
     gM = new gameManager();
+    sM = new scoreManager();
 
-    scoreDisplay = new Display("Score: ", gM.totalScore, 15, 30, 24, 255, 255, 255, "RIGHT");
-    levelDisplay = new Display("L ", gM.level, canvasx / 2, 30, 24, 255, 255, 255, "CENTER");
+    scoreDisplay = new Display("Score: ", gM.totalScore, 15, 50, 24, 255, 255, 255, "LEFT");        //DISPLAYS
+    levelDisplay = new Display("L ", gM.level, canvasx / 2, 50, 24, 255, 255, 255, "CENTER");
     winLoseDisplay = new Display("", "", canvasx / 2, canvasy / 2 - 50, 28, 255, 0, 0, "CENTER");
     tipDisplay = new Display("", "", canvasx / 2, canvasy / 2 + 10, 20, 255, 255, 255, "CENTER");
+    labelDisplay = new Display("Invaders ", gM.version, canvasx - 15, 50, 24, 50, 50, 50, "RIGHT");
 
-    gM.spawnAliens(0);
+    p = new playerObject();
 
-    x = canvasx / 2;                                  //PLAYER
+    gM.spawnAliens();
+    gM.spawnBlocks();
 }
 
 function draw() {
@@ -45,10 +49,10 @@ function draw() {
     fill("red");                                        //DRAWS END GAME LINE
     rect(canvasx / 2, canvasy - 50, canvasx, 5);
 
-    noStroke();                                         //PLAYER ToDo: needs to be in its own object
-    fill(255);
-    rect(x, canvasy - 5, 50, 5);
-    rect(x, canvasy - 10, 20, 10);
+    labelDisplay.update(gM.version);
+    labelDisplay.render();
+
+    p.render();
 
     for (var i = 0; i < bullets.length; i++) {          //BULLETS
         bullets[i].update();
@@ -60,6 +64,16 @@ function draw() {
         aliens[i].update();
         aliens[i].path();
         aliens[i].render();
+    }
+
+    for (var i = 0; i < blocks.length; i++) {           //BLOCKS
+        blocks[i].update();
+        blocks[i].render();
+    }
+
+    for (var i = 0; i < powerUps.length; i++) {        //POWERUPS
+        powerUps[i].update();
+        powerUps[i].render();
     }
 
     for (var i = 0; i < particles.length; i++) {        //PARTICLES
@@ -79,7 +93,7 @@ function draw() {
             fill(0);
             rect(canvasx / 2, canvasy / 2, canvasx, canvasy);
 
-            winLoseDisplay.update("YOU LOST");
+            winLoseDisplay.update("SCORE: " + gM.totalScore);
             winLoseDisplay.render();
 
             tipDisplay.update("PRESS SHIFT TO RESTART");
@@ -96,23 +110,17 @@ function draw() {
 
 
     if (keyIsDown(RIGHT_ARROW))                         //USER INPUT
-        x += 3;
+        p.pos.x += 3;
     if (keyIsDown(LEFT_ARROW))
-        x -= 3;
+        p.pos.x -= 3;
 
-    timer++;                                            //USED TO LIMIT BULLETS
+    boomTimer++;   
+    gM.timer++;                                         //USED TO LIMIT BULLETS
 }
 
 function keyPressed() {
     if (keyCode == UP_ARROW) {
-        if (timer >= 20) {
-            bullets.push(new bulletObject());               //Creates Bullet
-
-            fires.push(new fire(x, canvasy - 10));      //Creates Fire Partical effect
-            fires[fires.length - 1].spawn();
-
-            timer = 0;                                      //Resets timer
-        }
+        p.boom();
     }
 
     if (keyCode === SHIFT && gM.gameLive === false) {

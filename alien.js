@@ -15,7 +15,7 @@ function alienObject(xoff, yoff) {
     this.lifetime = 0;
     
     this.collision = function() {
-        if (this.pos.y + this.size/2 >= canvasy - 50 && this.live === true && gM.gameLive === true) {
+        if (this.pos.y + this.size/2 >= gM.endGameLine && this.live === true && gM.gameLive === true) {
             gM.score -= 100;
         }
     }

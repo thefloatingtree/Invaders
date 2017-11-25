@@ -13,8 +13,10 @@ function Display(lable, display, x, y, size, colorr, colorg, colorb, alignment) 
         textSize(this.size);
         if (this.align === "CENTER") {
             textAlign(CENTER);
-        } else {
+        } else if (this.align === "LEFT") {
             textAlign(LEFT);
+        } else {
+            textAlign(RIGHT);
         }
         fill(colorr,colorg,colorb);
         text(this.lable + this.display, this.pos.x, this.pos.y);
